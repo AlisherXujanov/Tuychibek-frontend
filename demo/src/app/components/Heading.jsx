@@ -1,6 +1,8 @@
-const Heading = () => {
+const Heading = ({ title, color, children }) => {
   return (
-    <h1>Hello Tuychibek</h1>
+    <h1 style={{ color }}>
+      {children ? children : title}
+    </h1>
   )
 }
 
