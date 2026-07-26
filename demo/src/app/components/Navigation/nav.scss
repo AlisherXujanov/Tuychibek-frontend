@@ -1,0 +1,21 @@
+@use "../../../assets/styles/settings.scss" as *;
+
+nav {
+    background-color: $dark;
+    @include flex(row, space-between);
+
+    a {
+        display: inline-block;
+        padding: 10px 20px;
+        color: $light;
+        text-decoration: none;
+
+        &:hover {
+            background-color: $success;
+        }
+    }
+
+    .left {}
+
+    .right {}
+}

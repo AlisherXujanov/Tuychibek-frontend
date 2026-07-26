@@ -1,0 +1,19 @@
+// COLORS
+
+$success: #00ff00;
+$error: #ff0000;
+$warning: #ffff00;
+$primary: #0000ff;
+$dark: #333;
+$light: #fff;
+
+
+
+// MIXINS
+@mixin flex($direction:row, $justify:center, $align:center, $gap:10px) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    gap: $gap;
+}
