@@ -1,0 +1,20 @@
+@use "../../assets/styles/settings.scss" as *;
+
+.about-page {
+    padding: 20px;
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        .card {
+            background-color: $dark;
+            padding: 20px;
+            background-color: $dark;
+            color: $warning;
+            @include flex(column);
+        }
+
+    }
+}
