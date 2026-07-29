@@ -12,8 +12,8 @@ export default function Navigation(props) {
                 <Link href="/#">Contact</Link>
             </div>
             <div className="right">
-                <Link href="/login">Login</Link>
-                <Link href="/register">Register</Link>
+                <Link href="/auth/login">Login</Link>
+                <Link href="/auth/register">Register</Link>
             </div>
         </nav>
     )
