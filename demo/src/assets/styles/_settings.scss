@@ -1,14 +1,18 @@
-// COLORS
+// COLORS — premium music platform ("Resonance")
+// Cool pearl stage, ink night, teal immersion for listen/play,
+// champagne caution, soft emerald for download success.
 
-$success: #00ff00;
-$error: #ff0000;
-$warning: #ffff00;
-$primary: #0000ff;
-$secondary: #666;
-$dark: #333;
-$light: #fff;
+$success: #2BB673; // download complete / synced library
+$error: #D64545;   // stream failed / unavailable track
+$warning: #C9A227; // limited quality / offline warning
+$primary: #0E7C86; // listen, play, CTA — immersive teal
+$secondary: #6B7280; // muted chrome / supporting UI
+$dark: #0C0F12;    // night listening stage
+$light: #F5F7F9;   // cool pearl canvas (not warm cream)
 
-
+// NAV
+$nav-height: 4.25rem;
+$nav-bp: 768px;
 
 // MIXINS
 @mixin flex($direction:row, $justify:center, $align:center, $gap:10px) {
@@ -17,4 +21,16 @@ $light: #fff;
     justify-content: $justify;
     align-items: $align;
     gap: $gap;
+}
+
+@mixin nav-bp-up {
+    @media (min-width: $nav-bp) {
+        @content;
+    }
+}
+
+@mixin nav-bp-down {
+    @media (max-width: #{$nav-bp - 1px}) {
+        @content;
+    }
 }

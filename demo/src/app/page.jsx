@@ -1,38 +1,93 @@
-"use client"
+"use client";
 
-import Heading from "./components/Heading";
-import { useState } from "react"
-// useState   =>   memory of the component
+import { useState } from "react";
+import Link from "next/link";
+import "./landing.scss";
+import { tracks, getTrackById, getTrackIndex } from "@/store/tracks";
+import TrackList from "./components/Library/TrackList";
+import PlayerDrawer from "./components/Player/PlayerDrawer";
+import SiteFooter from "./components/Footer/SiteFooter";
 
 export default function Home() {
-  const [theme, setTheme] = useState('light')
+  const [activeTrackId, setActiveTrackId] = useState(null);
+  const [playerOpen, setPlayerOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
+  const activeTrack = activeTrackId ? getTrackById(activeTrackId) : null;
 
-  // Hook MUST be called before anything else in the component
-  // We import them from React itself
-  // ...
-
-  const LIGHT = {
-    backgroundColor: 'white',
-    color: 'black'
+  function selectTrack(trackId) {
+    setActiveTrackId(trackId);
+    setPlayerOpen(true);
+    setIsPlaying(true);
   }
-  const DARK = {
-    backgroundColor: 'black',
-    color: 'white'
+
+  function closePlayer() {
+    setPlayerOpen(false);
+    setIsPlaying(false);
   }
+
+  function togglePlay() {
+    setIsPlaying((playing) => !playing);
+  }
+
+  function playPrev() {
+    const index = getTrackIndex(activeTrackId);
+    if (index < 0) return;
+    const prev = tracks[(index - 1 + tracks.length) % tracks.length];
+    setActiveTrackId(prev.id);
+    setIsPlaying(true);
+  }
+
+  function playNext() {
+    const index = getTrackIndex(activeTrackId);
+    if (index < 0) return;
+    const next = tracks[(index + 1) % tracks.length];
+    setActiveTrackId(next.id);
+    setIsPlaying(true);
+  }
+
   return (
-    <div style={theme==='light' ?  LIGHT : DARK}>
-      <Heading title="Hello Tuychibek" color="red" />
+    <div className="landing-page">
+      <section className="hero" aria-label="Introduction">
+        <div className="hero__stage" aria-hidden="true" />
+        <div className="hero__content">
+          <p className="hero__brand">Tuychibek</p>
+          <h1 className="hero__headline">Sound shaped for clear nights.</h1>
+          <p className="hero__support">
+            A focused listening archive — open the library and step into the track.
+          </p>
+          <div className="hero__actions">
+            <a className="hero__cta" href="#library">
+              Listen
+            </a>
+            <Link className="hero__link" href="/about">
+              About
+            </Link>
+          </div>
+        </div>
+      </section>
 
-      <button onClick={(e) => {theme==="light" ? setTheme("dark") : setTheme("light")}}>
-        Toggle Theme
-      </button>
+      <main>
+        <TrackList
+          tracks={tracks}
+          activeTrackId={activeTrackId}
+          isPlaying={isPlaying}
+          playerOpen={playerOpen}
+          onSelectTrack={selectTrack}
+        />
+      </main>
+
+      <SiteFooter />
+
+      <PlayerDrawer
+        track={activeTrack}
+        open={playerOpen}
+        isPlaying={isPlaying}
+        onClose={closePlayer}
+        onTogglePlay={togglePlay}
+        onPrev={playPrev}
+        onNext={playNext}
+      />
     </div>
-  )
+  );
 }
-
-
-// JSX  =>  JavaScript XML
-
-// export {}
-// export default
